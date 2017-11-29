@@ -1,0 +1,44 @@
+<component name="libraryTable">
+  <library name="bundles">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/bundles/httpcore.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/bundles/libjitsi.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/bundles/netaddr.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/bundles/notification-service.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/bundles/util.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/bundles/httputil.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/bundles/protocol.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/bundles/ui-service.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/bundles/sdes4j.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/bundles/systray-service.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/bundles/zrtp4j.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/bundles/bouncycastle.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/bundles/contactsource.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/bundles/muc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/bundles/browserlauncher.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/bundles/sysactivitynotifications.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/bundles/credentialsstorage.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/bundles/httpclient.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/bundles/defaultresources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/bundles/msghistory.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/bundles/replacement.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/bundles/plugin-loggingutils.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/bundles/otr.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/bundles/resourcemanager.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/bundles/metahistory.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/bundles/commons-codec.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/bundles/certificate.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/bundles/updateservice.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/bundles/callhistory.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/bundles/dnsservice.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/bundles/globaldisplaydetails.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/bundles/filehistory.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/bundles/bccontrib.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/bundles/history.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/bundles/contactlist.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/bundles/notification-wiring.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

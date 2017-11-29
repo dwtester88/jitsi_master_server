@@ -1,0 +1,49 @@
+<component name="libraryTable">
+  <library name="dexedLibs">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/httpcore-551fcdf73aec35cb9d353458e6c665f7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/replacement-2897428f25a23bee50cb745f2b95f5f9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/zrtp4j-79c3b059a411d11c5cbb4edd14285444.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/libjitsi-5cbe8b8cf11fd85acb78a7e3b169ef03.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/android-support-v4-8753730e4903b745cc1fa460f9ec4052.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/log4j-1.2.8-c78c8a3a52d1fcab28e08e1ba729724a.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/ui-service-a4b7fe052785095761538f0a45ec1d87.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/dnsservice-8d9ef26cbbf890d1bb4f3dde90d63fd6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/notification-wiring-4ac6f73d50106de95520994ebadd28e3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/commons-codec-cee4d8bf0ffa83d3603b7fda707598ff.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/bouncycastle-dda99f8b1aaec5fddabf3a6e18d8c7ec.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/smack-sasl-ed02e06f56f5af5fbf29e7c1c6700493.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/httpclient-6e47c0c6f6de2e9727001bed3f6f4edc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/certificate-1d70c7e44f532e6b8452fb51240bb58d.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/notification-service-9d5496d1a3fbe8d199bb059e349342dc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/credentialsstorage-9bd6de43b052e4b31696e34c8ae99aae.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/metahistory-2b8a405e0604fbb2e9e7a3cbc71caeea.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/otr-fc1a03192b8b884edea7aab7a5924a6e.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/history-13f0d8601db26ca5dca1793db1059d11.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/osgi.core-7445f34c128064ae3abeb0855ef2bf3d.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/msghistory-a02bab1b23c228ea76f5259a27807ae3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/systray-service-5099c22ad7a572cf7917140a4eadc125.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/contactlist-669c1c5d990c9b8375d52bb2ae91b4af.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/util-6d373bc452258446b2c0dc3da45335b9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/bccontrib-5d10eefac6d976f0ab6397a1de27523c.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/netaddr-08600e0d90b8790b49d2c4d1f3c8af6a.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/java-stubs-44da6d8b32556db8fa9f6b0045ac9c81.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/sysactivitynotifications-a7ec54c1bd11d9d450ad655d1be295e9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/muc-e7032c24d2c6f2f4f94c46ed11f998fc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/plugin-loggingutils-e66f585dd74d5ca877f37deb344ec99b.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/globaldisplaydetails-37bca11aadbf0201aa98c794ef4d3c69.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/browserlauncher-742c2ed55ab69cebe29dabbd627da74c.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/filehistory-737bcc60007c4ec9d695b1fa3f8ad5f4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/resourcemanager-6d12134732753dbc3e750792a50d4113.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/defaultresources-05de93cf9163a3b5c468d80411e4ad24.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/protocol-e62084df701438854180172e7ba8443f.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/httputil-0d9844094677bfcdc5e14bcad0928270.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/updateservice-ebdda0db4dcc09bcc4827bcadb15f1e6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/contactsource-a96569790d2593a746188c918556d9d2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/sdes4j-70b0bcc1faa91b17cdc1c90c8a5c2f11.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/callhistory-4d4a191840666f41ca4d50c52efc39c7.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

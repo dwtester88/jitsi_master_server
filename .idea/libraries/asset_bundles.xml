@@ -1,0 +1,28 @@
+<component name="libraryTable">
+  <library name="asset-bundles">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/asset-bundles/notification-handlers.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/asset-bundles/protocol-jabber.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/asset-bundles/argdelegation-service.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/asset-bundles/fileaccess.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/asset-bundles/hid-service.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/asset-bundles/packetlogging.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/asset-bundles/provdisc-dhcp.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/asset-bundles/reconnectplugin.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/asset-bundles/googlecontacts-service.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/asset-bundles/dns.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/asset-bundles/provisioning.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/asset-bundles/protocol-sip.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/asset-bundles/json.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/asset-bundles/provdisc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/asset-bundles/replacement-smiley.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/asset-bundles/customavatar-service.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/asset-bundles/meta-cl.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/asset-bundles/smacklib.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/asset-bundles/customcontactactions.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/asset-bundles/provdisc-mdns.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="jitsi-bundles-dex">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/assets/jitsi-bundles-dex.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,0 +1,49 @@
+<component name="libraryTable">
+  <library name="libs">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/bccontrib.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/httpclient.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/contactlist.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/sysactivitynotifications.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/ui-service.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/callhistory.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/smack-sasl.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/browserlauncher.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/systray-service.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/globaldisplaydetails.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/replacement.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/commons-codec.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/filehistory.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/otr.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/dnsservice.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/msghistory.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/resourcemanager.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/bouncycastle.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/credentialsstorage.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/defaultresources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/java-stubs.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/zrtp4j.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/certificate.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/log4j-1.2.8.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/notification-wiring.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/sdes4j.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/util.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/updateservice.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/notification-service.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/protocol.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/libjitsi.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/httputil.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/history.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/httpcore.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/metahistory.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/muc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/android-support-v4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/netaddr.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/contactsource.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/osgi.core.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/plugin-loggingutils.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
