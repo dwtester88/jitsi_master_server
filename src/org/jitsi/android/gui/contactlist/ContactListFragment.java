@@ -20,9 +20,15 @@ package org.jitsi.android.gui.contactlist;
 import android.annotation.*;
 import android.app.*;
 import android.content.*;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Camera;
+import android.net.Uri;
 import android.os.*;
+import android.provider.MediaStore;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.*;
 import android.widget.*;
 import android.widget.ExpandableListView.OnChildClickListener;
@@ -40,6 +46,12 @@ import org.jitsi.android.gui.contactlist.model.*;
 import org.jitsi.android.gui.util.*;
 import org.jitsi.service.osgi.*;
 import org.jitsi.util.*;
+
+import java.io.*;
+import java.net.URI;
+import java.nio.ByteBuffer;
+import java.text.Format;
+import android.util.Base64;
 
 /**
  *
@@ -110,7 +122,12 @@ public class ContactListFragment
     }
 
     //mychange
-    Button callbutton,broadcastbutton;
+    Button callbutton,broadcastbutton,pictureclick;
+    ImageView image;
+    File imagefile;
+    Uri imageuri;
+    private boolean waitforpicture = true;
+    private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1888;
 
     /**
      * {@inheritDoc}
@@ -128,7 +145,6 @@ public class ContactListFragment
         View content = inflater.inflate( R.layout.contact_list,
                                          container,
                                          false);
-
         contactListView = (ExpandableListView) content
                 .findViewById(R.id.contactListView);
         contactListView.setSelector(R.drawable.contact_list_selector);
@@ -139,16 +155,74 @@ public class ContactListFragment
         registerForContextMenu(contactListView);
 
         //mychange
+        imagefile = new File("test2" + ".jpg");
+        if (!imagefile.exists()) {
+            imagefile = new File(
+                    Environment.getExternalStorageDirectory(),
+                    "test2.jpg");
+            logger.info("file exist" + imagefile + ",Bitmap= " + "test");
+        }
+        image = (ImageView) content.findViewById(R.id.imageView2);
+        image.setImageURI(Uri.fromFile(imagefile));
+        image.requestFocus();
+        image.postDelayed(swapImage,200); //to change image
         broadcastbutton = (Button) content.findViewById(R.id.broadcastbutton);
         broadcastbutton.setText("Broadcast");
-        broadcastbutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                ChatSession.sendMessage("msg");
 
-            }
-        });
+
+                broadcastbutton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        //mychange take picture using simple camera intent use below method. Here you have to manually click the the button
+                        //takepictureandbroadcast();
+
+                        //mychange take picture using cameraAPI CameraView class is using camera api. Here it will autoclick the picture without user interation
+                        Intent icam = new Intent(getActivity().getApplication(), CameraView.class);
+                        icam.putExtra("First", true);
+                        icam.putExtra("wait_flag", true);
+
+
+
+                        icam.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imagefile));
+                        startActivityForResult(icam, 999);
+
+
+
+
+                        image.setImageURI(Uri.fromFile(imagefile));
+                        image.requestFocus();
+                        image.postDelayed(swapImage,200); //to change image
+
+
+
+
+              /*
+              logger.info("iiiiiiiiiiiiiii");
+                CameraView cameraView = new CameraView();
+                logger.info("iiiiijjjjjj");
+                cameraView.onClick(view);
+                logger.info("iiiiijjjjjj111111");*/
+
+                /*Intent icam = new Intent(content.getContext(),CameraView.class);
+                //icam.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+               content.getContext().startActivity(icam);*//*
+              //  icam.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+               // CameraView cameraView = new CameraView();
+                *//* Intent videoCall
+                = VideoCallActivity.createVideoCallIntent(
+                        appContext,
+                        callIdentifier);
+        videoCall.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        appContext.startActivity(videoCall);;*//*
+                *//*Intent camera
+                        = new Intent(content.getContext(),CameraView.class);
+               // camera.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                content.getContext().startActivity(camera);*/
+                        // ChatSession.sendMessage("msg");
+                    }
+                });
 
         /*//mychange
         View content1 = inflater.inflate( R.layout.home_layout,
@@ -162,14 +236,207 @@ public class ContactListFragment
             }
         });
         return content1;*/
-
-
-
-
-
         return  content;
     }
 
+    public void takepictureandbroadcast() {
+
+
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE_SECURE);
+        imagefile = new File("test2" + ".jpg");
+        if (!imagefile.exists()) {
+            imagefile = new File(
+                    Environment.getExternalStorageDirectory(),
+                    "test2.jpg");
+            logger.info("file exist" + imagefile + ",Bitmap= " + "test");
+        }
+
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imagefile));
+        imageuri = Uri.fromFile(imagefile);
+        startActivityForResult(intent,
+                CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+        image.setImageURI(imageuri);
+        image.requestFocus();
+        image.postDelayed(swapImage,200); //to change image
+
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (resultCode == Activity.RESULT_OK) {
+            logger.info("Camera intent returns OK Code");
+            //waitforpicture=false;
+            if (data.getBooleanExtra("result", false)) {
+                logger.info("Camera took piture for first time");
+
+                logger.info(" activity result" + data.getBooleanExtra("result", false));
+                //This will broadcast the IPaddress of server to all the units in the network.
+                // broadcastIP = new BroadcastIP(broadcastmessage, getBroadcastIp());
+            }
+            waitforpicture = data.getBooleanExtra("wait_flag", true);
+
+            // while (waitforpicture){}
+
+
+        }
+        if (resultCode == Activity.RESULT_CANCELED) {
+            //Write your code if there's no result
+        }
+
+        //for pictureclick button
+        if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
+            if (resultCode == Activity.RESULT_OK) {
+                // Bitmap bmp = (Bitmap) data.getExtras().get("data");
+                //  ByteArrayOutputStream stream = new ByteArrayOutputStream();
+
+                logger.info("picture is captured");
+                imagefile = new File(Environment.getExternalStorageDirectory(), "test2.jpg");
+                FileInputStream fis = null;
+                try {
+                    fis = new FileInputStream(imagefile);
+                    Bitmap bm = BitmapFactory.decodeStream(fis);
+                    ByteArrayOutputStream outstream = new ByteArrayOutputStream();
+                    bm.compress(Bitmap.CompressFormat.JPEG, 10, outstream);
+                    byte[] byteArr = outstream.toByteArray();
+                    String imagesend = Base64.encodeToString(byteArr, Base64.DEFAULT);
+                    image.setImageBitmap(bm);
+
+                    logger.info("picture is captured and sending");
+                    ChatSession.sendMessage(imagesend);
+                } catch (FileNotFoundException e) {
+                    logger.error(Log.getStackTraceString(e));
+                    e.printStackTrace();
+                }
+
+
+//                // my change if you want to save file use below code
+//                file = new File("test" + ".png");
+//                if (!file.exists()) {
+//                    file = new File(
+//                            Environment.getExternalStorageDirectory(),
+//                            "test.png");
+//                    logger.info("file exist" + file + ",Bitmap= " + "test");
+//                }
+//
+//                //mychange if you want to save image use below code
+//                try {
+//                    // make a new bitmap from your file
+//                    FileOutputStream outStream = new FileOutputStream(file);
+//                    bmp.compress(Bitmap.CompressFormat.PNG, 100, outStream);
+//                    outStream.flush();
+//                    outStream.close();
+//                } catch (Exception e) {
+//                    Log.d("Error e ",e.getMessage());
+//                }
+//                bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
+//                byte[] byteArray = stream.toByteArray();
+//                String temp=Base64.encodeToString(byteArray, Base64.DEFAULT);
+//
+//
+//                // convert byte array to Bitmap
+//                Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, 0,
+                //                      byteArray.length);
+                //  image.setImageBitmap(bitmap);
+                //  ChatSession.sendMessage(imagesend);
+
+                //        }
+                //     }
+
+                super.onActivityResult(requestCode, resultCode, data);
+            }
+        }
+    }
+
+    private Runnable swapImage = new Runnable() {
+        @Override
+        public void run() {
+            logger.info("update uri here");
+            image.setImageURI(Uri.fromFile(imagefile));
+            image.requestFocus();
+
+
+        }
+    };
+
+    //mychange if you use the camera intent to take picture use the below OnActivityResult override method
+   /* @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        logger.info("picture is captured1");
+        if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
+            if (resultCode == Activity.RESULT_OK) {
+               // Bitmap bmp = (Bitmap) data.getExtras().get("data");
+              //  ByteArrayOutputStream stream = new ByteArrayOutputStream();
+
+                logger.info("picture is captured");
+                File imagefile = new File(Environment.getExternalStorageDirectory(),"test1.jpg" );
+                FileInputStream fis = null;
+                try {
+                    fis = new FileInputStream(imagefile);
+                    Bitmap bm = BitmapFactory.decodeStream(fis);
+                    ByteArrayOutputStream outstream = new ByteArrayOutputStream();
+                    bm.compress(Bitmap.CompressFormat.JPEG, 10, outstream);
+                    byte[] byteArr = outstream.toByteArray();
+                    String imagesend =Base64.encodeToString(byteArr, Base64.DEFAULT);
+                    image.setImageBitmap(bm);
+
+                    logger.info("picture is captured and sending");
+                    ChatSession.sendMessage(imagesend);
+                } catch (FileNotFoundException e) {
+                    logger.error(Log.getStackTraceString(e));
+                    e.printStackTrace();
+                }
+
+
+
+
+
+//                // my change if you want to save file use below code
+//                file = new File("test" + ".png");
+//                if (!file.exists()) {
+//                    file = new File(
+//                            Environment.getExternalStorageDirectory(),
+//                            "test.png");
+//                    logger.info("file exist" + file + ",Bitmap= " + "test");
+//                }
+//
+//                //mychange if you want to save image use below code
+//                try {
+//                    // make a new bitmap from your file
+//                    FileOutputStream outStream = new FileOutputStream(file);
+//                    bmp.compress(Bitmap.CompressFormat.PNG, 100, outStream);
+//                    outStream.flush();
+//                    outStream.close();
+//                } catch (Exception e) {
+//                    Log.d("Error e ",e.getMessage());
+//                }
+//                bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
+//                byte[] byteArray = stream.toByteArray();
+//                String temp=Base64.encodeToString(byteArray, Base64.DEFAULT);
+//
+//
+//                // convert byte array to Bitmap
+//                Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, 0,
+  //                      byteArray.length);
+              //  image.setImageBitmap(bitmap);
+              //  ChatSession.sendMessage(imagesend);
+
+            }
+        }
+    }
+*/
+   /* public static String encodeImage(byte[] imageByteArray){
+        return Base64.encodeToString(imageByteArray,Base64.DEFAULT);
+    }*/
+
+
+    /*public void vibrate(){
+        Vibrator v = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
+        // Vibrate for 500 milliseconds
+        v.vibrate(500);
+    }*/
 
 
     /**
@@ -766,6 +1033,7 @@ public class ContactListFragment
             }
         }
     }
+
 
     /**
      * Class used to implement <tt>SearchView</tt> listeners for compatibility

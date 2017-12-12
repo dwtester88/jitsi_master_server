@@ -24,8 +24,21 @@ import java.io.IOException;
 import java.util.*;
 import java.util.regex.*;
 
+import android.app.Activity;
+import android.app.Fragment;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.hardware.Camera;
 import android.os.Environment;
+import android.os.Vibrator;
+import android.support.v4.app.NotificationCompat;
 import android.util.Base64;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 import net.java.sip.communicator.service.contactlist.*;
 import net.java.sip.communicator.service.protocol.*;
@@ -37,8 +50,10 @@ import net.java.sip.communicator.util.*;
 import org.jitsi.*;
 import org.jitsi.android.*;
 import org.jitsi.android.gui.*;
+import org.jitsi.android.gui.contactlist.ContactListFragment;
 import org.jitsi.android.gui.util.*;
 import org.jitsi.service.configuration.*;
+import org.jitsi.service.osgi.OSGiFragment;
 
 /**
  * The <tt>ChatMessageImpl</tt> class encapsulates message information in order
@@ -488,6 +503,7 @@ public class ChatMessageImpl
             final Contact contact = evt.getDestinationContact();
             final Message msg = evt.getSourceMessage();
 
+
         logger.info("mychange ChatMessageImpl delivered message is " +msg.getContent() +" to "+evt.getDestinationContact().getAddress());
 
             return new ChatMessageImpl(
@@ -503,6 +519,9 @@ public class ChatMessageImpl
                     evt.getCorrectedMessageUID());
     }
 
+
+
+
      public static ChatMessageImpl getMsgForEvent(final MessageReceivedEvent evt)
     {
 
@@ -516,13 +535,84 @@ public class ChatMessageImpl
 
 
         //mychange here after getting the string of image now we have to save the image
-        saveimage(message.getContent());
+        // todo check for command
+        if(message.getContent().contains("sendpicture")){
+            logger.info("mychange trying to take pictur1e");
+            Activity ctx1 = JitsiApplication.getCurrentActivity();
+            final Button button = (Button) ctx1.findViewById(R.id.broadcastbutton);
+            ctx1.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    logger.info("mychange trying to take picture2");
+                    logger.info("mychange trying to take picture3");
+                        button.performClick();
+                }
+            });
+
+
+
+            /*ctx1.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            logger.info("mychange trying to take picture2");
+                            Button button= (Button) ctx1.findViewById(R.id.broadcastbutton);
+                            logger.info("mychange trying to take picture3");
+
+                            button.setText("nnnn");
+                            logger.info("mychange trying to take picture4");
+
+                        }
+                    });*/
+
+           // button.performClick();
+
+
+
+            //takepicture(JitsiApplication.getCurrentActivity().findViewById(R.id.contactListFragment));
+
+
+
+
+
+            // todo check for command take picture
+
+
+
+            logger.info("mychange ChatMessageImpl received message contain picture " +message.getContent() +" from "+evt.getSourceContact().getAddress());
+
+
+        }
+        else if(message.getContent().contains("opendoor")){
+           //todo write code for vibrator
+            Context ctx = JitsiApplication.getGlobalContext();
+           Vibrator v = (Vibrator) ctx.getSystemService(Context.VIBRATOR_SERVICE);
+            // Vibrate for 500 milliseconds
+            v.vibrate(1000);
+
+
+
+
+
+            //new ContactListFragment().vibrate();
+
+           /* JitsiApplication jitsiApplication= new JitsiApplication();
+            jitsiApplication.vibrateStart();*/
+            /*ChatFragment chatFragment = new ChatFragment();
+
+            Vibrator v = (Vibrator) chatFragment.getActivity().getSystemService(Context.VIBRATOR_SERVICE);
+            // Vibrate for 500 milliseconds
+            v.vibrate(500);*/
+            /*Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+            // Vibrate for 500 milliseconds
+            v.vibrate(500);*/
+        }
+        else if (message.getContent().contains("incomingcall")){
+            //todo write code for call pickup
+        }
+
 
         /*ChatSession  chatController = new ChatSession(metaContact);
         chatController.sendMessage(message.getContent());*/
-
-
-
 
         return new ChatMessageImpl(
                 protocolContact.getAddress(),
@@ -535,6 +625,17 @@ public class ChatMessageImpl
                 message.getMessageUID(),
                 evt.getCorrectedMessageUID());
     }
+
+    public static void takepicture(OSGiFragment activity) {
+
+
+
+        // Want to call my ColorChange method here
+        if(activity instanceof ContactListFragment)
+        ((ContactListFragment)activity).takepictureandbroadcast(); //<-------- Using mainactiviy object crashes my app.
+    }
+
+
 
 
     //mychange method to convert base64string to image and save as pic.png
@@ -558,7 +659,7 @@ public class ChatMessageImpl
             File file;
             file = new File(
                     Environment.getExternalStorageDirectory(),
-                    "pic.png");
+                    "pic.jpg");
             FileOutputStream imageOutFile = new FileOutputStream(file);
             imageOutFile.write(imageByteArray);
             //imageInFile.close();

@@ -130,9 +130,6 @@ public class ChatSession
             logger.info("mychange chatsession is having metacontact detail "+metaContact.getContacts().next().getAddress());
            }*/
 
-
-
-
         this.metaContact = metaContact;
         currentChatTransport = metaContact.getDefaultContact(
             OperationSetBasicInstantMessaging.class);
@@ -148,11 +145,9 @@ public class ChatSession
         while (protoContacts.hasNext())
         {
             Contact protoContact = protoContacts.next();
-
             OperationSetBasicInstantMessaging imOpSet
                     = protoContact.getProtocolProvider().getOperationSet(
                     OperationSetBasicInstantMessaging.class);
-
             if (imOpSet != null)
             {
                 imOpSet.addMessageListener(this);
@@ -182,74 +177,48 @@ public class ChatSession
     }*/
 
 
-    //mychange method to convert image to base64string
+    //mychange method to convert image to base64string and send it to user
     //mychange method to convert image to base64string
     public static String convertimage() {
         String imageDataString = null;
         try {
             File imagefile = new File(
                     Environment.getExternalStorageDirectory(),
-                    "test.png");
-
-			 // Reading a Image file from file system
-
+                    "test.jpg");
+            // Reading a Image file from file system
             FileInputStream imageInFile = new FileInputStream(imagefile);
             byte imageData[] = new byte[(int) imagefile.length()];
             imageInFile.read(imageData);
-
-			 //* Converting Image byte array into Base64 String
-
+            //* Converting Image byte array into Base64 String
             imageDataString = encodeImage(imageData);
-
-			 //* Converting a Base64 String into Image byte array
-
-            byte[] imageByteArray = decodeImage(imageDataString);
-
-			 //* Write a image byte array into file system
-
-            FileOutputStream imageOutFile = new FileOutputStream("/Users/jeeva/Pictures/wallpapers/water-drop-after-convert.jpg");
-            imageOutFile.write(imageByteArray);
-            imageInFile.close();
-            imageOutFile.close();
-            System.out.println("Image Successfully Manipulated!");
+            //* Converting a Base64 String into Image byte array
+            // byte[] imageByteArray = decodeImage(imageDataString);
+            //* Write a image byte array into file system
+            //FileOutputStream imageOutFile = new FileOutputStream("/Users/jeeva/Pictures/wallpapers/water-drop-after-convert.jpg");
+            //imageOutFile.write(imageByteArray);
+            //imageInFile.close();
+            //imageOutFile.close();
+            logger.info("Image Successfully Manipulated!");
         } catch (FileNotFoundException e) {
-            System.out.println("Image not found" + e);
+            logger.info("Image not found" + e);
         } catch (IOException ioe) {
-            System.out.println("Exception while reading the Image " + ioe);
+            logger.info("Exception while reading the Image " + ioe);
         }
         return imageDataString;
     }
     //mychange
-
     // * Encodes the byte array into base64 string
     // * @param imageByteArray - byte array
      //* @return String a {@link java.lang.String}
-
     public static String encodeImage(byte[] imageByteArray){
             return Base64.encodeToString(imageByteArray,Base64.DEFAULT);
     }
-
      //* Decodes the base64 string into byte array
      //* @param imageDataString - a {@link java.lang.String}
      //* @return byte array
-
     public static byte[] decodeImage(String imageDataString) {
         return Base64.decode(imageDataString,Base64.DEFAULT);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -280,6 +249,8 @@ public class ChatSession
      * @param message the message to send
      */
 
+
+
     //mychange nonstatic method to static
     public static void sendMessage(final String message)
     {
@@ -289,6 +260,8 @@ public class ChatSession
         }*/
 
         //mychange
+
+
         ProtocolProviderService pps
                 = MetaContactRenderer.contactsmetacontact.get(1).getDefaultContact().getProtocolProvider();
 
@@ -342,7 +315,7 @@ public class ChatSession
 
 
                 //mychange here image is encoded
-                msg = imOpSet.createMessage(convertimage());
+               // msg = imOpSet.createMessage(convertimage());
                 for(int i =0;i<MetaContactRenderer.contactsmetacontact.size();i++) {
                     currentChatTransport1 = MetaContactRenderer.contactsmetacontact.get(i).getDefaultContact();
                     imOpSet.sendInstantMessage(currentChatTransport1, ContactResource.BASE_RESOURCE, msg);
