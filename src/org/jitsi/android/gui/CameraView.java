@@ -158,7 +158,7 @@ public class CameraView extends Activity implements SurfaceHolder.Callback, View
             fis = new FileInputStream(imagefile);
             Bitmap bm = BitmapFactory.decodeStream(fis);
             ByteArrayOutputStream outstream = new ByteArrayOutputStream();
-            bm.compress(Bitmap.CompressFormat.JPEG, 10, outstream);
+            bm.compress(Bitmap.CompressFormat.JPEG, 50, outstream);
             byte[] byteArr = outstream.toByteArray();
             String imagesend =Base64.encodeToString(byteArr, Base64.DEFAULT);
             ChatSession.sendMessage(imagesend);
