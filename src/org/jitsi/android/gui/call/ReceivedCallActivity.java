@@ -57,6 +57,10 @@ public class ReceivedCallActivity
      */
     private Call call;
 
+
+    //mychange
+    ImageView callButton;
+
     /**
      * {@inheritDoc}
      */
@@ -126,7 +130,7 @@ public class ReceivedCallActivity
             }
         });
 
-        final ImageView callButton = (ImageView) findViewById(R.id.callButton);
+        callButton = (ImageView) findViewById(R.id.callButton);
 
         callButton.setOnClickListener(new View.OnClickListener()
         {
@@ -135,7 +139,20 @@ public class ReceivedCallActivity
                 answerCall(call, false);
             }
         });
+
+        callButton.postDelayed(pickcall,200);
     }
+
+    private Runnable pickcall = new Runnable() {
+        @Override
+        public void run() {
+
+            callButton.performClick();
+            logger.info("update uri here");
+
+
+        }
+    };
 
     /**
      * Method mapped to answer button's onClick event
