@@ -32,8 +32,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.hardware.Camera;
+import android.net.Uri;
 import android.os.Environment;
 import android.os.Vibrator;
+import android.provider.MediaStore;
 import android.support.v4.app.NotificationCompat;
 import android.util.Base64;
 import android.util.Log;
@@ -538,17 +540,29 @@ public class ChatMessageImpl
         // todo check for command
         if(message.getContent().contains("sendpicture")){
             logger.info("message sendpicture is from " +evt.getSourceContact().getAddress());
-            String userdes=evt.getSourceContact().getAddress();
-            Activity ctx1 = JitsiApplication.getCurrentActivity();
+            final String sourcerequest=evt.getSourceContact().getDisplayName();
+            final Activity ctx1 = JitsiApplication.getCurrentActivity();
             final Button button = (Button) ctx1.findViewById(R.id.broadcastbutton);
             ctx1.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     logger.info("mychange trying to take picture2");
                     logger.info("mychange trying to take picture3");
+                   File imagefile = new File("test2" + ".jpg");
+                    if (!imagefile.exists()) {
+                        imagefile = new File(
+                                Environment.getExternalStorageDirectory(),
+                                "test2.jpg");
+                        logger.info("file exist" + imagefile + ",Bitmap= " + "test");
+                    }
 
 
-                        button.performClick();
+                    Intent icam = new Intent(ctx1.getApplication(), CameraView.class);
+                    icam.putExtra("First", true);
+                    icam.putExtra("wait_flag", true);
+                    icam.putExtra("destination",sourcerequest);
+                    icam.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imagefile));
+                    ctx1.startActivityForResult(icam, 999);
                 }
             });
 

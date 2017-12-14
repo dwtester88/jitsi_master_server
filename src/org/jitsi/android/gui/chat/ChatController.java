@@ -196,7 +196,7 @@ public class ChatController
         if(correctionUID == null)
         {
             // Sends the message
-            session.sendMessage(content);
+            session.sendMessage(content,"empty");
             //mychange added below line just to send extra strinmg alng with the txt message
         }
         else

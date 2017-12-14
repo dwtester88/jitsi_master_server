@@ -182,6 +182,7 @@ public class ContactListFragment
                         Intent icam = new Intent(getActivity().getApplication(), CameraView.class);
                         icam.putExtra("First", true);
                         icam.putExtra("wait_flag", true);
+                        icam.putExtra("destination","broadcast");
                         icam.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imagefile));
                         startActivityForResult(icam, 999);
                         image.setImageURI(Uri.fromFile(imagefile));

@@ -77,6 +77,9 @@ public class ChatSession
     // mychange variable is assigned
     public static Contact currentChatTransport1;
 
+    // mychange variable is assigned
+    public static Contact sourcereqest_contact;
+
     /**
      * The chat history filter.
      */
@@ -252,7 +255,7 @@ public class ChatSession
 
 
     //mychange nonstatic method to static
-    public static void sendMessage(final String message)
+    public static void sendMessage(final String message, final String sourcerequest)
     {
         /*if (StringUtils.isNullOrEmpty(message)) {
             logger.info("mychange message is blank " + message);
@@ -316,11 +319,30 @@ public class ChatSession
 
                 //mychange here image is encoded
                // msg = imOpSet.createMessage(convertimage());
-                for(int i =0;i<MetaContactRenderer.contactsmetacontact.size();i++) {
-                    currentChatTransport1 = MetaContactRenderer.contactsmetacontact.get(i).getDefaultContact();
-                    imOpSet.sendInstantMessage(currentChatTransport1, ContactResource.BASE_RESOURCE, msg);
+
+                if(sourcerequest.equals("broadcast")) {
+                    for (int i = 0; i < MetaContactRenderer.contactsmetacontact.size(); i++) {
+                        currentChatTransport1 = MetaContactRenderer.contactsmetacontact.get(i).getDefaultContact();
+                        imOpSet.sendInstantMessage(currentChatTransport1, ContactResource.BASE_RESOURCE, msg);
+                        logger.info("mychange chatsession message sent is " + msg.getContent() +
+                                " CurrentChatTransport is destination address " + currentChatTransport1.getAddress() + " contact count is ");
+                    }
+                }
+                else{
+
+                    for(int i =0;i<MetaContactRenderer.contactsmetacontact.size();i++) {
+                        logger.info("door contact is " + MetaContactRenderer.contactsmetacontact.get(i).getDisplayName());
+
+                        if (MetaContactRenderer.contactsmetacontact.get(i).getDisplayName().contains(sourcerequest)) {
+                            sourcereqest_contact = MetaContactRenderer.contactsmetacontact.get(i).getDefaultContact();
+                        }
+                    }
+                    imOpSet.sendInstantMessage(sourcereqest_contact, ContactResource.BASE_RESOURCE, msg);
                     logger.info("mychange chatsession message sent is " + msg.getContent() +
-                            " CurrentChatTransport is destination address " + currentChatTransport1.getAddress() + " contact count is ");
+                            " CurrentChatTransport is destination address " + sourcereqest_contact.getAddress() + " contact count is ");
+
+
+
                 }
 
 

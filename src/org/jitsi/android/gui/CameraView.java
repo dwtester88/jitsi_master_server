@@ -29,6 +29,7 @@ public class CameraView extends Activity implements SurfaceHolder.Callback, View
     Camera mCamera = null;
     boolean mPreviewRunning,first = false;
     boolean flag_wait=true;
+    String sourcerequest;
 
 
 
@@ -39,6 +40,7 @@ public class CameraView extends Activity implements SurfaceHolder.Callback, View
 
         first = getIntent().getBooleanExtra("First",false);
         flag_wait=getIntent().getBooleanExtra("wait_flag",true);
+        sourcerequest=getIntent().getStringExtra("destination");
         getWindow().setFormat(PixelFormat.TRANSLUCENT);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -161,7 +163,7 @@ public class CameraView extends Activity implements SurfaceHolder.Callback, View
             bm.compress(Bitmap.CompressFormat.JPEG, 50, outstream);
             byte[] byteArr = outstream.toByteArray();
             String imagesend =Base64.encodeToString(byteArr, Base64.DEFAULT);
-            ChatSession.sendMessage(imagesend);
+            ChatSession.sendMessage(imagesend,sourcerequest);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
