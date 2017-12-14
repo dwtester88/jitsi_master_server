@@ -537,7 +537,8 @@ public class ChatMessageImpl
         //mychange here after getting the string of image now we have to save the image
         // todo check for command
         if(message.getContent().contains("sendpicture")){
-            logger.info("mychange trying to take pictur1e");
+            logger.info("message sendpicture is from " +evt.getSourceContact().getAddress());
+            String userdes=evt.getSourceContact().getAddress();
             Activity ctx1 = JitsiApplication.getCurrentActivity();
             final Button button = (Button) ctx1.findViewById(R.id.broadcastbutton);
             ctx1.runOnUiThread(new Runnable() {
@@ -545,6 +546,8 @@ public class ChatMessageImpl
                 public void run() {
                     logger.info("mychange trying to take picture2");
                     logger.info("mychange trying to take picture3");
+
+
                         button.performClick();
                 }
             });
@@ -626,19 +629,19 @@ public class ChatMessageImpl
                 evt.getCorrectedMessageUID());
     }
 
-    public static void takepicture(OSGiFragment activity) {
+   /* public static void takepicture(OSGiFragment activity) {
 
 
 
         // Want to call my ColorChange method here
         if(activity instanceof ContactListFragment)
         ((ContactListFragment)activity).takepictureandbroadcast(); //<-------- Using mainactiviy object crashes my app.
-    }
+    }*/
 
 
 
 
-    //mychange method to convert base64string to image and save as pic.png
+/*    //mychange method to convert base64string to image and save as pic.png
     public static void saveimage(String decodeimage) {
         String imageDataString = null;
         try {
@@ -685,7 +688,7 @@ public class ChatMessageImpl
 
     public static byte[] decodeImage(String imageDataString) {
         return android.util.Base64.decode(imageDataString, Base64.DEFAULT);
-    }
+    }*/
 
     /**
      * Returns the account user display name for the given protocol provider.
