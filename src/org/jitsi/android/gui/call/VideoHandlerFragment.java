@@ -202,7 +202,23 @@ public class VideoHandlerFragment
         AndroidDecoder.renderSurfaceProvider
             = new PreviewSurfaceProvider(
                     (OSGiActivity) activity, remoteVideoContainer, false);
+
+        activity.findViewById(R.id.callVideoButton).postDelayed(pickcall,2000);
+
     }
+
+    private Runnable pickcall = new Runnable() {
+        @Override
+        public void run() {
+
+            Activity activity = getActivity();
+
+            activity.findViewById(R.id.callVideoButton).performClick();
+
+
+
+        }
+    };
 
     @Override
     public void onResume()
