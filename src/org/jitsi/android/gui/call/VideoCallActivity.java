@@ -149,6 +149,9 @@ public class VideoCallActivity
      */
     static CallStateHolder callState = new CallStateHolder();
 
+    TextView statusName;
+    ImageView hangupView;
+
     /**
      * Called when the activity is starting. Initializes the corresponding
      * call interface.
@@ -231,7 +234,7 @@ public class VideoCallActivity
             getSupportFragmentManager()
                     .beginTransaction()
                     .add(volControl, VOLUME_CTRL_TAG)
-                    .add(new ProximitySensorFragment(), PROXIMITY_FRAGMENT_TAG)
+
                     /* Adds the fragment that handles video display logic */
                     .add(videoFragment, VIDEO_FRAGMENT_TAG)
                     /* Adds the fragment that handles call duration logic */
@@ -249,6 +252,39 @@ public class VideoCallActivity
             volControl = (CallVolumeCtrlFragment)
                 fragmentManager.findFragmentByTag(VOLUME_CTRL_TAG);
         }
+
+        //mychange adding timertask to end call when call is disconnected from opposite end
+        calldisconnect();
+    }
+
+    private void calldisconnect() {
+        //mychange adding timertask to end call when call is disconnected from opposite end
+        final Timer timer = new Timer();
+        long delay = 5000;
+        long intevalPeriod = 3 * 1000;
+        // schedules the task to be run in an interval
+        TimerTask disconnect = new TimerTask() {
+            @Override
+            public void run() {
+                // task to run goes here
+                logger.info("mychange videocallactivity status text is "+statusName.getText().toString());
+                if(statusName.getText().toString().contains("Disconnected")){
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            findViewById(R.id.callHangupButton).performClick();
+                            logger.info("mychange videocallactivity status button is clicked "+statusName.getText().toString());
+                        }
+                    });
+                    logger.info("mychange videocallactivity status text if condition "+statusName.getText().toString());
+                        timer.cancel();
+                        timer.purge();
+                }
+            }
+        };
+        timer.scheduleAtFixedRate(disconnect, delay,
+                intevalPeriod);
     }
 
     @Override
@@ -272,7 +308,7 @@ public class VideoCallActivity
      */
     private void initHangupView()
     {
-        ImageView hangupView = (ImageView) findViewById(R.id.callHangupButton);
+        hangupView = (ImageView) findViewById(R.id.callHangupButton);
 
         hangupView.setOnClickListener(new View.OnClickListener()
         {
@@ -280,6 +316,7 @@ public class VideoCallActivity
             {
                 // Start the hang up Thread, Activity will be closed later 
                 // on call ended event
+                logger.info("mychange videocallactivity status text is hangupbutton pressed");
                 CallManager.hangupCall(call);
             }
         });
@@ -637,7 +674,7 @@ public class VideoCallActivity
         {
             public void run()
             {
-                TextView statusName = (TextView) findViewById(R.id.callStatus);
+                statusName = (TextView) findViewById(R.id.callStatus);
 
                 statusName.setText(stateString);
             }
