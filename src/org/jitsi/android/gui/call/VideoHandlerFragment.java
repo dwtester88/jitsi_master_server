@@ -203,10 +203,12 @@ public class VideoHandlerFragment
             = new PreviewSurfaceProvider(
                     (OSGiActivity) activity, remoteVideoContainer, false);
 
+        //mychange auto click callvideobutton
         activity.findViewById(R.id.callVideoButton).postDelayed(pickcall,2000);
 
     }
 
+    //mychange auto click callvideobutton
     private Runnable pickcall = new Runnable() {
         @Override
         public void run() {
