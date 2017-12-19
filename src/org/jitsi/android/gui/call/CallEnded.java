@@ -17,10 +17,13 @@
  */
 package org.jitsi.android.gui.call;
 
+import android.app.Activity;
 import android.content.*;
 import android.os.*;
 import android.view.*;
 
+import android.widget.ImageView;
+import net.java.sip.communicator.util.Logger;
 import org.jitsi.*;
 import org.jitsi.android.*;
 import org.jitsi.android.gui.util.*;
@@ -34,10 +37,19 @@ import org.jitsi.service.osgi.*;
 public class CallEnded
     extends OSGiFragment
 {
+    ImageView hangup;
+    /**
+     * The logger
+     */
+    private static final Logger logger =
+            Logger.getLogger(CallEnded.class);
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
+        Activity activity = getActivity();
+
         View v = inflater.inflate(R.layout.call_ended, container, false);
 
         ViewUtil.setTextViewValue(v, R.id.callTime,
@@ -52,18 +64,36 @@ public class CallEnded
             ViewUtil.ensureVisible(v, R.id.callErrorReason, false);
         }
 
-        v.findViewById(R.id.callHangupButton)
-            .setOnClickListener(new View.OnClickListener()
+       hangup= (ImageView) v.findViewById(R.id.callHangupButton);
+
+            hangup.setOnClickListener(new View.OnClickListener()
             {
                 @Override
                 public void onClick(View v)
                 {
+                    logger.info("mychange videocallactivity status is at callended ");
+
                     Context ctx = getActivity();
                     getActivity().finish();
                     ctx.startActivity(JitsiApplication.getHomeIntent());
                 }
             });
+        hangup.postDelayed(endcall,2000);
+
 
         return v;
     }
+
+    private Runnable endcall = new Runnable() {
+        @Override
+        public void run() {
+
+            Activity activity = getActivity();
+
+            hangup.performClick();
+
+
+
+        }
+    };
 }
