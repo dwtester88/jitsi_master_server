@@ -78,7 +78,7 @@ public class CallEnded
                     ctx.startActivity(JitsiApplication.getHomeIntent());
                 }
             });
-        hangup.postDelayed(endcall,2000);
+        hangup.postDelayed(endcall,500);
 
 
         return v;
