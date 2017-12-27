@@ -34,6 +34,7 @@ import org.jitsi.android.gui.LauncherActivity;
 import org.jitsi.android.gui.account.*;
 import org.jitsi.android.gui.chat.*;
 import org.jitsi.android.gui.util.*;
+import org.jitsi.service.PersistService;
 import org.jitsi.service.configuration.*;
 import org.jitsi.service.log.*;
 import org.jitsi.service.osgi.*;
@@ -99,7 +100,8 @@ public class JitsiApplication
     public void onCreate()
     {
         super.onCreate();
-
+        logger.info("startService(new Intent(getApplicationContext(),PersistService.class) );");
+        startService(new Intent(getApplicationContext(),PersistService.class) );
         instance = this;
     }
 
