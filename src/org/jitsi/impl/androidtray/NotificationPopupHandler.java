@@ -106,8 +106,13 @@ public class NotificationPopupHandler
                         PendingIntent.FLAG_UPDATE_CURRENT));
 
         // post the notification
-        JitsiApplication.getNotificationManager().notify(nId, builder.build());
+       // JitsiApplication.getNotificationManager().notify(nId, builder.build());
         newPopup.onPost();
+/*
+        logger.info("mychange notification id is "+nId+" cancel");
+        NotificationManager notifyManager
+                = JitsiApplication.getNotificationManager();
+        notifyManager.cancel(nId);*/
 
         // caches the notification until clicked or cleared
         notificationMap.put(nId, newPopup);

@@ -190,7 +190,7 @@ public class AndroidUtils
                                 & Notification.FLAG_NO_CLEAR;
 
         // mId allows you to update the notification later on.
-        mNotificationManager.notify(notificationID, notification);
+       // mNotificationManager.notify(notificationID, notification);
 
         lastNotificationText = message;
     }

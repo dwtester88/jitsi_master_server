@@ -167,6 +167,8 @@ public class AndroidPopup
      */
     public int getId()
     {
+
+        logger.info("mychange notification id is " +id);
         return id;
     }
 

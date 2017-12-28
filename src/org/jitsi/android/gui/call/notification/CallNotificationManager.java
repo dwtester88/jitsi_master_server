@@ -113,7 +113,7 @@ public class CallNotificationManager
                         Context.NOTIFICATION_SERVICE);
 
         int id = SystrayServiceImpl.getGeneralNotificationId();
-        mNotificationManager.notify(id, notification);
+        //mNotificationManager.notify(id, notification);
 
         CtrlNotificationThread notificationHandler
                 = new CtrlNotificationThread(ctx, call, id, notification);

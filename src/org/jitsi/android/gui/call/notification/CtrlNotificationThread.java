@@ -142,7 +142,7 @@ class CtrlNotificationThread
                             Context.NOTIFICATION_SERVICE);
             if(run)
             {
-                mNotificationManager.notify(id, notification);
+               // mNotificationManager.notify(id, notification);
             }
 
             synchronized (this)
