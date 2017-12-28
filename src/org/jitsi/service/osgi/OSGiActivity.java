@@ -273,7 +273,7 @@ public class OSGiActivity
                                        public void onClick(DialogInterface dialog, int which)
                                        {
                                            dialog.dismiss();
-                                           JitsiApplication.showSendLogsDialog();
+                                          // JitsiApplication.showSendLogsDialog();
                                        }
                                    })
                 .setNegativeButton(R.string.service_gui_NO,
@@ -284,10 +284,19 @@ public class OSGiActivity
                                        {
                                            dialog.dismiss();
                                        }
-                                   })
-                .create()
-                .show();
+                                   });
 
+        //mychange remove the Warning dialog after 2 sec
+        final AlertDialog dlg = question.create();
+        dlg.show();
+        final Timer t = new Timer();
+        t.schedule(new TimerTask() {
+            public void run() {
+                logger.info("mychange alert dismiss ");
+                dlg.dismiss(); // when the task active then close the dialog
+                t.cancel(); // also just top the timer thread, otherwise, you may receive a crash report
+            }
+        }, 2000); // after 2 second (or 2000 milis
     }
 
     protected void onNewIntent(Intent intent)

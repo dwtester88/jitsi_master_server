@@ -184,6 +184,7 @@ public class VideoHandlerFragment
             @Override
             public void onClick(View v)
             {
+                logger.info("mychange videobug actual clicked");
                 onLocalVideoButtonClicked(v);
             }
         });
@@ -214,6 +215,7 @@ public class VideoHandlerFragment
         public void run() {
 
             Activity activity = getActivity();
+            logger.info("mychange videobug auto clicked");
 
             activity.findViewById(R.id.callVideoButton).performClick();
 
@@ -441,13 +443,15 @@ public class VideoHandlerFragment
      */
     private void setLocalVideoEnabled(boolean enable)
     {
+        logger.info("mychange videobug setLocalVideoEnabled method check params enable " +enable);
         if(call == null)
         {
+            logger.info("mychange videobug setLocalVideoEnabled method call is null ");
             logger.error("Call instance is null(the call has ended already ?)");
             return;
         }
 
-        //mychange this enables the video calling function
+        //forinfo this enables the video calling function
         CallManager.enableLocalVideo(call, enable);
     }
 

@@ -28,6 +28,9 @@ import net.java.sip.communicator.util.*;
 import org.jitsi.R;
 import org.jitsi.service.osgi.*;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  * Activity displays the certificate to the user and asks him whether to trust
  * the certificate or not. It also uses <tt>CertInfoDialog</tt> to display
@@ -67,6 +70,7 @@ public class VerifyCertificateActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+       // logger.info("mychange auto click continue button");
 
         this.requestId = getIntent().getLongExtra(REQ_ID, -1);
 
@@ -85,11 +89,22 @@ public class VerifyCertificateActivity
 
         setContentView(R.layout.verify_certificate);
 
-        TextView msgView = (TextView) findViewById(R.id.message);
+        final TextView msgView = (TextView) findViewById(R.id.message);
 
         msgView.setText(Html.fromHtml(certDialog.getMsg()));
 
         setTitle(certDialog.getTitle());
+
+        //mychange auto click the continue button by invoking oncontinueclicked() method which is onclick method of button
+        final Timer t = new Timer();
+        t.schedule(new TimerTask() {
+            public void run() {
+                logger.info("mychange auto click continue button");
+                onContinueClicked(msgView);
+               // logger.info("mychange auto click continue button");
+            }
+        }, 200); // after 2 second (or 2000 miliseconds), the task will be active.
+
     }
 
     /**
