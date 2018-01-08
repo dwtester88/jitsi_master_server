@@ -22,6 +22,7 @@ import android.content.*;
 import android.os.Bundle; // disambiguation
 
 import android.util.Log;
+import android.view.KeyEvent;
 import net.java.sip.communicator.util.Logger;
 
 import org.jitsi.*;
@@ -307,5 +308,16 @@ public class Jitsi
                         + accountLoginIntent.getDataString());
                 }
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_VOLUME_DOWN )){
+            findViewById(R.id.broadcastbutton).performClick();
+        }
+        else if (keyCode==KeyEvent.KEYCODE_VOLUME_UP){
+            findViewById(R.id.broadcastbutton).performClick();
+        }
+        return true;
     }
 }
