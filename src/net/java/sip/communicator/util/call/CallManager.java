@@ -563,10 +563,12 @@ public class CallManager
             {
                 try
                 {
+                    logger.info("mychange videobug callmanager enablelocalvideothread");
                     telephony.setLocalVideoAllowed(call, enable);
                 }
                 catch (OperationFailedException ex)
                 {
+                    logger.info("mychange videobug callmanager enablelocalvideothread error "+ex);
                     logger.error(
                         "Failed to toggle the streaming of local video.",
                         ex);
