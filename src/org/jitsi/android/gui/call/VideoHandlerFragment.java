@@ -219,6 +219,7 @@ public class VideoHandlerFragment
 
             activity.findViewById(R.id.callVideoButton).performClick();
 
+            activity.findViewById(R.id.speakerphoneButton).performClick();
 
 
         }
