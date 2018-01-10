@@ -16,24 +16,24 @@
     </PreferenceCategory>
 
     <!-- Message settings -->
-    <PreferenceCategory
+    <!--<PreferenceCategory
             android:title="@string/service_gui_settings_MSG"
             android:key="@string/pref_cat_settings_msg" >
-        <!-- Group messages in one window -->
-        <!--<CheckBoxPreference
+        &lt;!&ndash; Group messages in one window &ndash;&gt;
+        &lt;!&ndash;<CheckBoxPreference
                 android:title="@string/service_gui_settings_MULTICHAT_WINDOW"
                 android:key="@string/pref_key_multichat_window"
                 android:summaryOn="@string/service_gui_settings_MULTICHAT_ON"
                 android:summaryOff="@string/service_gui_settings_MULTICHAT_OFF"
-                />-->
-        <!-- Log chat history -->
+                />&ndash;&gt;
+        &lt;!&ndash; Log chat history &ndash;&gt;
         <CheckBoxPreference
             android:title="@string/service_gui_settings_HISTORY_LOGGING"
             android:key="@string/pref_key_history_logging"
             android:summaryOn="@string/service_gui_settings_HISTORY_LOG_ON"
             android:summaryOff="@string/service_gui_settings_HISTORY_LOG_OFF"
             />
-        <!-- Show x recent messages in new chats -->
+        &lt;!&ndash; Show x recent messages in new chats &ndash;&gt;
         <CheckBoxPreference
             android:title="@string/service_gui_settings_SHOW_HISTORY"
             android:key="@string/pref_key_show_history"
@@ -47,29 +47,29 @@
             android:dependency="@string/pref_key_show_history"
             android:inputType="number"
             />
-        <!-- Tell others when we are writing to them -->
+        &lt;!&ndash; Tell others when we are writing to them &ndash;&gt;
         <CheckBoxPreference
             android:title="@string/service_gui_settings_TYPING_NOTIFICATIONS"
             android:key="@string/pref_key_typing_notifications"
             android:summaryOn="@string/service_gui_settings_ENABLED_STR"
             android:summaryOff="@string/service_gui_settings_DISABLED_STR"
             />
-        <!-- Smiley replacement -->
+        &lt;!&ndash; Smiley replacement &ndash;&gt;
         <CheckBoxPreference
             android:title="@string/plugin_chatconfig_replacement_ENABLE_SMILEY_STATUS"
             android:key="@string/pref_key_smiley_replacement"
             android:summaryOn="@string/service_gui_settings_ENABLED_STR"
             android:summaryOff="@string/service_gui_settings_DISABLED_STR"
             />
-        <!-- Use task bar / dock alerts on incoming calls and chats
+        &lt;!&ndash; Use task bar / dock alerts on incoming calls and chats
             not implemented on Android
         <CheckBoxPreference
                 android:title="@string/service_gui_settings_CHAT_ALERTS"
                 android:key="@string/pref_key_chat_alerts"
                 android:summaryOn="@string/service_gui_settings_ENABLED_STR"
                 android:summaryOff="@string/service_gui_settings_DISABLED_STR"
-                />-->
-    </PreferenceCategory>
+                />&ndash;&gt;
+    </PreferenceCategory>-->
     <!-- Notifications -->
     <PreferenceCategory
             android:title="@string/service_gui_settings_NOTIFICATIONS"

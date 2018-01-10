@@ -200,7 +200,7 @@ public class SettingsActivity
             localePreference.setValue(currLocale.getDisplayLanguage());*/
 
             // Messages section
-            initMessagesPreferences();
+           // initMessagesPreferences();
 
             // Notifications section
             initNotificationPreferences();
@@ -603,16 +603,12 @@ public class SettingsActivity
                     = AndroidGUIActivator.getMessageHistoryService();
 
                 mhs.setHistoryLoggingEnabled(
-                    shPreferences.getBoolean(
-                        P_KEY_LOG_CHAT_HISTORY,
-                        mhs.isHistoryLoggingEnabled()));
+                    false);
             }
             else if(key.equals(P_KEY_SHOW_HISTORY))
             {
                 ConfigurationUtils.setHistoryShown(
-                        shPreferences.getBoolean(
-                                P_KEY_SHOW_HISTORY,
-                                ConfigurationUtils.isHistoryShown()));
+                        false);
             }
             else if(key.equals(P_KEY_HISTORY_SIZE))
             {
@@ -625,9 +621,7 @@ public class SettingsActivity
             else if(key.equals(P_KEY_TYPING_NOTIFICATIONS))
             {
                 ConfigurationUtils.setSendTypingNotifications(
-                        shPreferences.getBoolean(
-                                P_KEY_TYPING_NOTIFICATIONS,
-                                ConfigurationUtils.isSendTypingNotifications())
+                       false
                 );
             }
             else if(key.equals(P_KEY_SMILEY_REPLACEMENT))
