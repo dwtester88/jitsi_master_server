@@ -603,12 +603,16 @@ public class SettingsActivity
                     = AndroidGUIActivator.getMessageHistoryService();
 
                 mhs.setHistoryLoggingEnabled(
-                    false);
+                    shPreferences.getBoolean(
+                        P_KEY_LOG_CHAT_HISTORY,
+                        mhs.isHistoryLoggingEnabled()));
             }
             else if(key.equals(P_KEY_SHOW_HISTORY))
             {
                 ConfigurationUtils.setHistoryShown(
-                        false);
+                        shPreferences.getBoolean(
+                                P_KEY_SHOW_HISTORY,
+                                ConfigurationUtils.isHistoryShown()));
             }
             else if(key.equals(P_KEY_HISTORY_SIZE))
             {
@@ -621,7 +625,9 @@ public class SettingsActivity
             else if(key.equals(P_KEY_TYPING_NOTIFICATIONS))
             {
                 ConfigurationUtils.setSendTypingNotifications(
-                       false
+                        shPreferences.getBoolean(
+                                P_KEY_TYPING_NOTIFICATIONS,
+                                ConfigurationUtils.isSendTypingNotifications())
                 );
             }
             else if(key.equals(P_KEY_SMILEY_REPLACEMENT))

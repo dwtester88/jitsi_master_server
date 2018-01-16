@@ -15,8 +15,8 @@
             />
     </PreferenceCategory>
 
-    <!-- Message settings -->
-    <!--<PreferenceCategory
+   <!-- &lt;!&ndash; Message settings &ndash;&gt;
+    <PreferenceCategory
             android:title="@string/service_gui_settings_MSG"
             android:key="@string/pref_cat_settings_msg" >
         &lt;!&ndash; Group messages in one window &ndash;&gt;
