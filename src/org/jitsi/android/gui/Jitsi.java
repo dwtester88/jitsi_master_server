@@ -314,9 +314,11 @@ public class Jitsi
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_VOLUME_DOWN )){
             findViewById(R.id.broadcastbutton).performClick();
+            ChatSession.sendMessage("guest","broadcast");
         }
         else if (keyCode==KeyEvent.KEYCODE_VOLUME_UP){
             findViewById(R.id.broadcastbutton).performClick();
+            ChatSession.sendMessage("motion","broadcast");
         }
         return true;
     }
