@@ -88,15 +88,15 @@ public class ChatController
     /**
      * Typing state control thread that goes down from typing to stopped state.
      */
-    private TypingControl typingCtrlThread;
+   // private TypingControl typingCtrlThread;
     /**
      * Current typing state.
      */
-    private int typingState = OperationSetTypingNotifications.STATE_STOPPED;
+   // private int typingState = OperationSetTypingNotifications.STATE_STOPPED;
     /**
      * The time when for the last time STATE_TYPING has been sent.
      */
-    private long lastTypingSent;
+   // private long lastTypingSent;
 
     /**
      * Creates new instance of <tt>ChatController</tt>.
@@ -173,11 +173,11 @@ public class ChatController
         // Remove text listener
         msgEdit.removeTextChangedListener(this);
         // Finish typing state ctrl thread
-        if(typingCtrlThread != null)
+        /*if(typingCtrlThread != null)
         {
             typingCtrlThread.cancel();
             typingCtrlThread = null;
-        }
+        }*/
         // Store edited text in session
         session.setEditedText(msgEdit.getText().toString());
     }
@@ -364,7 +364,7 @@ public class ChatController
                 return;
             }
 
-            if (typingState != OperationSetTypingNotifications.STATE_TYPING)
+            /*if (typingState != OperationSetTypingNotifications.STATE_TYPING)
             {
                 setNewTypingState(OperationSetTypingNotifications.STATE_TYPING);
             }
@@ -378,7 +378,7 @@ public class ChatController
             else
             {
                 typingCtrlThread.refreshTyping();
-            }
+            }*/
         }
     }
 
@@ -387,7 +387,7 @@ public class ChatController
      * the last time.
      * @param newState new typing state to set.
      */
-    private void setNewTypingState(int newState)
+   /* private void setNewTypingState(int newState)
     {
         if(session.sendTypingNotification(newState))
         {
@@ -397,14 +397,14 @@ public class ChatController
             }
             typingState = newState;
         }
-    }
+    }*/
 
     /**
      * The thread lowers typing state from typing to stopped state. When
      * <tt>refreshTyping</tt> is called checks for eventual typing state
      * refresh.
      */
-    class TypingControl
+    /*class TypingControl
         extends Thread
     {
         boolean restart;
@@ -468,9 +468,9 @@ public class ChatController
             typingCtrlThread = null;
         }
 
-        /**
+        *//**
          * Restarts thread's control loop.
-         */
+         *//*
         void refreshTyping()
         {
             synchronized (this)
@@ -480,9 +480,9 @@ public class ChatController
             }
         }
 
-        /**
+        *//**
          * Cancels and joins the thread.
-         */
+         *//*
         void cancel()
         {
             synchronized (this)
@@ -499,5 +499,5 @@ public class ChatController
                 throw new RuntimeException(e);
             }
         }
-    }
+    }*/
 }
