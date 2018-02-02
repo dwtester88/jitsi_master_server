@@ -367,6 +367,11 @@ public class MetaContactListAdapter
     private void addContact(final MetaContactGroup metaGroup,
                             final MetaContact metaContact)
     {
+
+        if(!MetaContactRenderer.contactsmetacontact.contains(metaContact))
+            MetaContactRenderer.contactsmetacontact.add(metaContact);
+        logger.info("mychange contactsmetacontact is " +MetaContactRenderer.contactsmetacontact.size());
+
         addContactStatusListener(metaContact, this);
 
         int origGroupIndex = originalGroups.indexOf(metaGroup);
