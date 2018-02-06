@@ -317,13 +317,9 @@ public class Jitsi
         if ((keyCode == KeyEvent.KEYCODE_VOLUME_DOWN )){
             findViewById(R.id.broadcastbutton).performClick();
             ChatSession.sendMessage("guest","broadcast");
-            MediaPlayer mp = null;
-            if (mp != null) {
-                mp.reset();
-                mp.release();
-            }
+            MediaPlayer mp;
             mp = MediaPlayer.create(JitsiApplication.getCurrentActivity().getApplicationContext(), R.raw.lowbell);
-           mp.start();
+            mp.start();
         }
         else if (keyCode==KeyEvent.KEYCODE_VOLUME_UP){
             findViewById(R.id.broadcastbutton).performClick();
