@@ -19,6 +19,7 @@ package org.jitsi.android.gui;
 
 import android.app.*;
 import android.content.*;
+import android.media.MediaPlayer;
 import android.os.Bundle; // disambiguation
 
 import android.util.Log;
@@ -26,6 +27,7 @@ import android.view.KeyEvent;
 import net.java.sip.communicator.util.Logger;
 
 import org.jitsi.*;
+import org.jitsi.android.JitsiApplication;
 import org.jitsi.android.gui.chat.*;
 import org.jitsi.android.gui.contactlist.*;
 import org.jitsi.android.gui.fragment.*;
@@ -315,6 +317,13 @@ public class Jitsi
         if ((keyCode == KeyEvent.KEYCODE_VOLUME_DOWN )){
             findViewById(R.id.broadcastbutton).performClick();
             ChatSession.sendMessage("guest","broadcast");
+            MediaPlayer mp = null;
+            if (mp != null) {
+                mp.reset();
+                mp.release();
+            }
+            mp = MediaPlayer.create(JitsiApplication.getCurrentActivity().getApplicationContext(), R.raw.lowbell);
+           mp.start();
         }
         else if (keyCode==KeyEvent.KEYCODE_VOLUME_UP){
             findViewById(R.id.broadcastbutton).performClick();
