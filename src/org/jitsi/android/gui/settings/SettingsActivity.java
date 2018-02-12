@@ -419,7 +419,7 @@ public class SettingsActivity
             }
 
             //Frame rate
-            String defaultFpsStr = "20";
+            String defaultFpsStr = "10";
             CheckBoxPreference limitFpsPref
                     = (CheckBoxPreference) findPreference(P_KEY_VIDEO_LIMIT_FPS);
             int targetFps = deviceConfig.getFrameRate();
