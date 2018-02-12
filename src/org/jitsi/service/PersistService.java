@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
 import net.java.sip.communicator.util.Logger;
@@ -51,6 +52,40 @@ public class PersistService extends Service {
         }
 */
         // Start your (polling) task
+       final Handler handler = new Handler();
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                ActivityManager am = (ActivityManager)  getSystemService(Context.ACTIVITY_SERVICE);
+                // The first in the list of RunningTasks is always the foreground task.
+                ActivityManager.RunningTaskInfo foregroundTaskInfo = am.getRunningTasks(1).get(0);
+                String foregroundTaskPackageName = foregroundTaskInfo.topActivity.getPackageName();
+                PackageManager pm = getApplicationContext().getPackageManager();
+//                PackageInfo foregroundAppPackageInfo = null;
+//                try {
+//                    foregroundAppPackageInfo = pm.getPackageInfo(foregroundTaskPackageName, 0);
+//                } catch (PackageManager.NameNotFoundException e) {
+//                    e.printStackTrace();
+//                }
+//                String foregroundTaskAppName = foregroundAppPackageInfo.applicationInfo.loadLabel(pm).toString();
+
+                //mychange
+                //logger.info("mychange persistservice foregroundapp name "+foregroundTaskAppName);
+                logger.info("mychange persistservice foregroundapp package name "+foregroundTaskPackageName);
+                // ActivityManager.RunningTaskInfo foregroundTaskInfo = ActivityManager.RunningTaskInfo.getRunningTasks(1).get(0);
+                //String foregroundTaskPackageName = foregroundTaskInfo .topActivity.getPackageName();
+
+                // Check foreground app: If it is not in the foreground... bring it!
+                if (!foregroundTaskPackageName.equals("org.jitsi")){
+                    //  logger.info("mychange persistservice if condition foregroundapp name "+foregroundTaskAppName);
+                    Intent LaunchIntent = getPackageManager().getLaunchIntentForPackage("org.jitsi");
+                    startActivity(LaunchIntent);
+                }
+                handler.postDelayed(this,10000);
+            }
+        };
+        handler.postDelayed(runnable,10000);
+
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
@@ -95,7 +130,7 @@ public class PersistService extends Service {
             }
         };
         Timer timer = new Timer();
-        timer.scheduleAtFixedRate(task, 0, INTERVAL);
+        //timer.scheduleAtFixedRate(task, 0, INTERVAL);
     }
 
     @Override
