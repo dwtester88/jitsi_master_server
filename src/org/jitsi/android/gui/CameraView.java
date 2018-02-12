@@ -90,6 +90,20 @@ public class CameraView extends Activity implements SurfaceHolder.Callback, View
                     int height = bitmap.getHeight();
                     int newWidth = 1536;
                     int newHeight = 2048;
+
+                    // calculate the scale - in this case = 0.4f
+                    float scaleWidth = ((float) newWidth) / width;
+                    float scaleHeight = ((float) newHeight) / height;
+
+                    // createa matrix for the manipulation
+                    Matrix matrix = new Matrix();
+                    // resize the bit map
+                    matrix.postScale(scaleWidth, scaleHeight);
+                    // rotate the Bitmap
+                    matrix.postRotate(90);
+                    Bitmap resizedBitmap = Bitmap.createBitmap(bitmap, 0, 0,
+                            width, height, matrix, true);
+                    // CaptureCameraImage.image.setImageBitmap(resizedBitmap);
                     File file = new File("test2" + ".jpg");
                     if (!file.exists()) {
                         file = new File(
@@ -100,38 +114,14 @@ public class CameraView extends Activity implements SurfaceHolder.Callback, View
                     try {
                         // make a new bitmap from your file
                         FileOutputStream outStream = new FileOutputStream(file);
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, outStream);
-
-
-
-
-
-
+                        resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 50, outStream);
                         outStream.flush();
                         outStream.close();
-
                         //mychange
                         sendimage();
-
-
-
                     } catch (Exception e) {
                         Log.d("Error e ",e.getMessage());
                     }
-
-                    /*// calculate the scale - in this case = 0.4f
-                    float scaleWidth = ((float) newWidth) / width;
-                    float scaleHeight = ((float) newHeight) / height;
-
-                    // createa matrix for the manipulation
-                    Matrix matrix = new Matrix();
-                    // resize the bit map
-                    matrix.postScale(scaleWidth, scaleHeight);
-                    // rotate the Bitmap
-                    matrix.postRotate(-90);
-                    Bitmap resizedBitmap = Bitmap.createBitmap(bitmap, 0, 0,
-                            width, height, matrix, true);
-                    // CaptureCameraImage.image.setImageBitmap(resizedBitmap);*/
 
                 }catch(Exception e){
                     e.printStackTrace();
