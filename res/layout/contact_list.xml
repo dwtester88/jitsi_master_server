@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/broadcastbutton"
             android:text="send"
-            />
+            android:onClick="sendpic"/>
 
     <ExpandableListView
             android:id="@+id/contactListView"
