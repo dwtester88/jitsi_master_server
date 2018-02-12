@@ -44,7 +44,7 @@ import java.io.*;
 import java.util.*;
 
 /**
- * 
+ *
  * @author Yana Stamcheva
  * @author Pawel Domas
  */
@@ -324,7 +324,7 @@ public class ChatSession
                     for (int i = 0; i < MetaContactRenderer.contactsmetacontact.size(); i++) {
                         currentChatTransport1 = MetaContactRenderer.contactsmetacontact.get(i).getDefaultContact();
                         imOpSet.sendInstantMessage(currentChatTransport1, ContactResource.BASE_RESOURCE, msg);
-                        logger.info("mychange chatsession message sent is " + msg.getContent() +
+                        logger.info("mychange chatsession message sent is " + msg.getContent().length() +
                                 " CurrentChatTransport is destination address " + currentChatTransport1.getAddress() + " contact count is ");
                     }
                 }
