@@ -16,6 +16,7 @@
  * limitations under the License.
  */
 package org.jitsi.android.gui.chat;
+import android.content.Intent;
 import android.util.Base64;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -30,8 +31,10 @@ import net.java.sip.communicator.service.msghistory.*;
 import net.java.sip.communicator.service.protocol.*;
 import net.java.sip.communicator.service.protocol.event.*;
 
+import org.jitsi.android.JitsiApplication;
 import org.jitsi.android.gui.*;
 
+import org.jitsi.android.gui.contactlist.model.MetaContactListAdapter;
 import org.jitsi.android.gui.contactlist.model.MetaContactRenderer;
 import org.jitsi.android.util.java.awt.event.*;
 import org.jitsi.android.util.javax.swing.event.*;
@@ -263,10 +266,18 @@ public class ChatSession
         }*/
 
         //mychange
+        MetaContactRenderer metaContactRenderer = new MetaContactRenderer();
+        logger.info("mychange contactsmetacontact is in chatsession "+metaContactRenderer.contactsmetacontact.size());
+        //logger.info("mychange contactsmetacontact is in chatsession contact "+MetaContactRenderer.contactsmetacontact.get(1).getDefaultContact().toString());
+        ProtocolProviderService pps;
+        try {
+            pps = metaContactRenderer.contactsmetacontact.get(metaContactRenderer.contactsmetacontact.size()-1).getDefaultContact().getProtocolProvider();
+            logger.info("mychange contactsmetacontact is in chatsession pss "+pps.toString());
 
-
-        ProtocolProviderService pps
-                = MetaContactRenderer.contactsmetacontact.get(1).getDefaultContact().getProtocolProvider();
+        }catch (Exception e){
+            logger.info("mychange contactsmetacontact is in chatsession error "+e.getMessage());
+            return;
+        }
 
 
         /* //mychange below code is the original code of above change
@@ -331,7 +342,7 @@ public class ChatSession
                 else{
 
                     for(int i =0;i<MetaContactRenderer.contactsmetacontact.size();i++) {
-                        logger.info("door contact is " + MetaContactRenderer.contactsmetacontact.get(i).getDisplayName());
+                        logger.info("door contact is " + MetaContactRenderer.contactsmetacontact.get(i).getDefaultContact().toString());
 
                         if (MetaContactRenderer.contactsmetacontact.get(i).getDisplayName().contains(sourcerequest)) {
                             sourcereqest_contact = MetaContactRenderer.contactsmetacontact.get(i).getDefaultContact();

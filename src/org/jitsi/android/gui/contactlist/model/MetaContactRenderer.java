@@ -63,8 +63,10 @@ public class MetaContactRenderer
 
         //mychange here we are adding all contacts in the arraylist
         if(!contactsmetacontact.contains(metaContact))
-            contactsmetacontact.add(metaContact);
-        logger.info("mychange contactsmetacontact are " +contactsmetacontact.size());
+        {
+           contactsmetacontact.add(metaContact);
+        }
+        logger.info("mychange contactsmetacontact at getstatus " +contactsmetacontact.size());
 
 
 

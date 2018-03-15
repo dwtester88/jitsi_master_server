@@ -78,6 +78,7 @@ public abstract class BaseContactListAdapter
     {
         contactListFragment = clFragment;
         contactListView = contactListFragment.getContactListView();
+        MetaContactRenderer.contactsmetacontact.clear();
     }
 
     /**
