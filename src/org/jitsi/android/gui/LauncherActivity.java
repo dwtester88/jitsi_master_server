@@ -19,6 +19,7 @@ package org.jitsi.android.gui;
 
 import android.content.*;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.view.*;
 import android.view.animation.*;
 import android.widget.*;
@@ -63,11 +64,20 @@ public class LauncherActivity
      */
     private Intent restoreIntent;
 
+    protected PowerManager.WakeLock mWakeLock;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         // Request indeterminate progress for splash screen
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+
+        /* This code together with the one in onDestroy()
+         * will make the screen be always on until this Activity gets destroyed. */
+        final PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+        this.mWakeLock = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, "My Tag");
+        this.mWakeLock.acquire();
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
 
 
