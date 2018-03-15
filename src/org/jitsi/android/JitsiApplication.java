@@ -110,7 +110,9 @@ public class JitsiApplication
      */
     @Override
     public void onTerminate()
-    {
+    {   logger.info("startService(new Intent(getApplicationContext(),PersistService.class) );");
+        startService(new Intent(getApplicationContext(),PersistService.class) );
+
         instance = null;
 
         super.onTerminate();
@@ -131,7 +133,8 @@ public class JitsiApplication
      */
     private void doShutdownApplication()
     {
-
+        logger.info("startService(new Intent(getApplicationContext(),PersistService.class) );");
+        startService(new Intent(getApplicationContext(),PersistService.class) );
         // Shutdown the OSGi service
         stopService(new Intent(this, OSGiService.class));
         // Broadcast the exit action
