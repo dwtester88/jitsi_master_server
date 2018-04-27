@@ -165,7 +165,7 @@ public class ContactListFragment
         image = (ImageView) content.findViewById(R.id.imageView2);
         image.setImageURI(Uri.fromFile(imagefile));
         image.requestFocus();
-        image.postDelayed(swapImage,200); //to change image
+        image.postDelayed(swapImage,500); //to change image
         broadcastbutton = (Button) content.findViewById(R.id.broadcastbutton);
         broadcastbutton.setText("Broadcast");
 
@@ -187,7 +187,7 @@ public class ContactListFragment
                         startActivityForResult(icam, 999);
                         image.setImageURI(Uri.fromFile(imagefile));
                         image.requestFocus();
-                        image.postDelayed(swapImage,200); //to change image
+                        image.postDelayed(swapImage,500); //to change image
 
               /*
               logger.info("iiiiiiiiiiiiiii");
@@ -257,7 +257,7 @@ public class ContactListFragment
 
         if (resultCode == Activity.RESULT_OK) {
 
-            image.postDelayed(swapImage,200); //to change image
+            image.postDelayed(swapImage,500); //to change image
 
         }
 
