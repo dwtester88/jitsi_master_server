@@ -111,6 +111,21 @@ public class CameraView extends Activity implements SurfaceHolder.Callback, View
                                 "test2.jpg");
                         Log.e("file exist", "" + file + ",Bitmap= " + "test2");
                     }
+
+///////////////////////Use below code if you want to send image as it took picture without rotation
+                    /*try {
+                        FileOutputStream fos = new FileOutputStream(file);
+                        fos.write(data);
+                        fos.close();
+                        sendimage();
+
+                    } catch (Exception error) {
+                        Log.d("Error on cameraview: ",  error.getMessage());
+
+                    }*/
+
+
+///////////////////////Use below code if you want to rotate image before sending
                     try {
                         // make a new bitmap from your file
                         FileOutputStream outStream = new FileOutputStream(file);
@@ -143,7 +158,7 @@ public class CameraView extends Activity implements SurfaceHolder.Callback, View
 
 
     //mychange
-    private void sendimage() {
+    public void sendimage() {
         File imagefile = new File(Environment.getExternalStorageDirectory(),"test2.jpg" );
         FileInputStream fis = null;
         try {
@@ -219,7 +234,7 @@ public class CameraView extends Activity implements SurfaceHolder.Callback, View
         }
         mCamera.startPreview();
         mPreviewRunning = true;
-        mCamera.takePicture(null, mPictureCallback, mPictureCallback);
+        mCamera.takePicture(null, null, mPictureCallback);
     }
 
     public void surfaceDestroyed(SurfaceHolder holder) {
