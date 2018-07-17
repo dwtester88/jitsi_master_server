@@ -1,0 +1,49 @@
+Applications Memory Usage (kB):
+Uptime: 1705476 Realtime: 2250641
+
+** MEMINFO in pid 7193 [org.jitsi] **
+                   Pss  Private  Private  Swapped     Heap     Heap     Heap
+                 Total    Dirty    Clean    Dirty     Size    Alloc     Free
+                ------   ------   ------   ------   ------   ------   ------
+  Native Heap     2921     2848        0    16892    20156    17062     3093
+  Dalvik Heap    10517    10480        0    20432    33697    25632     8065
+ Dalvik Other      710      704        0      656                           
+        Stack      156      156        0       60                           
+    Other dev        4        0        4        0                           
+     .so mmap      748       64      220     1648                           
+    .apk mmap      159        0       92        0                           
+    .dex mmap      924        0      924        8                           
+    .oat mmap     3330        0     2088        4                           
+    .art mmap     1883     1172      192      500                           
+   Other mmap       12        4        0       24                           
+      Unknown       36       36        0      196                           
+        TOTAL    21400    15464     3520    40420    53853    42694    11158
+ 
+ App Summary
+                       Pss(KB)
+                        ------
+           Java Heap:    11844
+         Native Heap:     2848
+                Code:     3388
+               Stack:      156
+            Graphics:        0
+       Private Other:      748
+              System:     2416
+ 
+               TOTAL:    21400      TOTAL SWAP (KB):    40420
+ 
+ Objects
+               Views:      133         ViewRootImpl:        1
+         AppContexts:        4           Activities:        1
+              Assets:        2        AssetManagers:        2
+       Local Binders:       14        Proxy Binders:       18
+       Parcel memory:        4         Parcel count:       16
+    Death Recipients:        0      OpenSSL Sockets:        1
+ 
+ SQL
+         MEMORY_USED:      175
+  PAGECACHE_OVERFLOW:       99          MALLOC_SIZE:       62
+ 
+ DATABASES
+      pgsz     dbsz   Lookaside(b)          cache  Dbname
+         4       92             30      2790/20/5  /data/user/0/org.jitsi/databases/net.java.sip.communicator.impl.configuration.SQLiteConfigurationStore.db

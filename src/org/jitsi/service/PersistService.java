@@ -16,10 +16,11 @@ import org.jitsi.android.JitsiApplication;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 public class PersistService extends Service {
 
-    private static final int INTERVAL = 10000; // poll every 3 secs
+    private static final int INTERVAL = 30000; // poll every 30 secs
     private static final String YOUR_APP_PACKAGE_NAME = "YOUR_APP_PACKAGE_NAME";
 
     private static boolean stopTask;
@@ -56,11 +57,28 @@ public class PersistService extends Service {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                ActivityManager am = (ActivityManager)  getSystemService(Context.ACTIVITY_SERVICE);
+                /*ActivityManager am = (ActivityManager)  getSystemService(Context.ACTIVITY_SERVICE);
                 // The first in the list of RunningTasks is always the foreground task.
                 ActivityManager.RunningTaskInfo foregroundTaskInfo = am.getRunningTasks(1).get(0);
                 String foregroundTaskPackageName = foregroundTaskInfo.topActivity.getPackageName();
                 PackageManager pm = getApplicationContext().getPackageManager();
+                List<ActivityManager.RunningAppProcessInfo> process = am.getRunningAppProcesses();*/
+                logger.info("PersistService process name of top activity ");
+                if(!isJitsiinforeground()){
+                    Intent LaunchIntent = getPackageManager().getLaunchIntentForPackage("org.jitsi");
+                    LaunchIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(LaunchIntent);
+                }
+                /*for(int index=0; index < process.size(); index++){
+                    logger.info("process name of top activity "+process.get(index).processName);
+                }
+
+
+                List<ActivityManager.RunningTaskInfo> alltask = am.getRunningTasks(1);
+                for(ActivityManager.RunningTaskInfo atask: alltask){
+                    logger.info("class name of top activity "+atask.topActivity.getClassName());
+
+                }
 //                PackageInfo foregroundAppPackageInfo = null;
 //                try {
 //                    foregroundAppPackageInfo = pm.getPackageInfo(foregroundTaskPackageName, 0);
@@ -79,14 +97,15 @@ public class PersistService extends Service {
                 if (!foregroundTaskPackageName.equals("org.jitsi")){
                     //  logger.info("mychange persistservice if condition foregroundapp name "+foregroundTaskAppName);
                     Intent LaunchIntent = getPackageManager().getLaunchIntentForPackage("org.jitsi");
+                    LaunchIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(LaunchIntent);
-                }
-                handler.postDelayed(this,10000);
+                }*/
+                handler.postDelayed(this,INTERVAL);
             }
         };
-        handler.postDelayed(runnable,10000);
+        handler.postDelayed(runnable,INTERVAL);
 
-        TimerTask task = new TimerTask() {
+   /*     TimerTask task = new TimerTask() {
             @Override
             public void run() {
 
@@ -94,9 +113,9 @@ public class PersistService extends Service {
                // isAppRunning(getApplicationContext(),"org.jitsi");
 
                 // If you wish to stop the task/polling
-                /*if (stopTask){
+                *//*if (stopTask){
                     this.cancel();
-                }*/
+                }*//*
 
                // logger.info("mychange persistservice is ruuning");
 
@@ -130,21 +149,42 @@ public class PersistService extends Service {
             }
         };
         Timer timer = new Timer();
-        //timer.scheduleAtFixedRate(task, 0, INTERVAL);
+        //timer.scheduleAtFixedRate(task, 0, INTERVAL);*/
+    }
+
+    public boolean isJitsiinforeground() {
+        try {
+            if((JitsiApplication.getCurrentActivity().toString()).contains("jitsi")){
+                return true;
+
+            }
+
+            logger.info("Current activity is " +JitsiApplication.getCurrentActivity());
+            return  false;
+        }
+        catch (Exception e){
+            logger.info("Current activity Exception is " +e.getMessage());
+            return false;
+
+        }
     }
 
     @Override
     public void onDestroy(){
         stopTask = true;
+        startService(new Intent(getApplicationContext(),PersistService.class) );
         if (mWakeLock != null)
             mWakeLock.release();
         super.onDestroy();
     }
 
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        return Service.START_STICKY;
+    }
 
 
-
-        /*public boolean isAppRunning(final Context context, final String packageName) {
+/*public boolean isAppRunning(final Context context, final String packageName) {
 
             final ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
             final List<ActivityManager.RunningAppProcessInfo> procInfos = activityManager.getRunningAppProcesses();

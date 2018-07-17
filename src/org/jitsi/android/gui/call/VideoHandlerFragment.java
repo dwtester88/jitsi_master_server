@@ -205,9 +205,22 @@ public class VideoHandlerFragment
                     (OSGiActivity) activity, remoteVideoContainer, false);
 
         //mychange auto click callvideobutton
-        activity.findViewById(R.id.callVideoButton).postDelayed(pickcall,2000);
+        activity.findViewById(R.id.callVideoButton).postDelayed(pickcall,4000);
+        activity.findViewById(R.id.callHangupButton).postDelayed(endcall,180000);
 
     }
+    private Runnable endcall = new Runnable() {
+        @Override
+        public void run() {
+            Activity activity = getActivity();
+            try {
+                activity.findViewById(R.id.callHangupButton).performClick();
+            }
+            catch (Exception e){
+                logger.debug("VideoHandlerFragment exception on call end" +e.getMessage());
+            }
+        }
+    };
 
     //mychange auto click callvideobutton
     private Runnable pickcall = new Runnable() {
@@ -215,12 +228,14 @@ public class VideoHandlerFragment
         public void run() {
 
             Activity activity = getActivity();
-            logger.info("mychange videobug auto clicked");
 
-            activity.findViewById(R.id.callVideoButton).performClick();
 
-            activity.findViewById(R.id.speakerphoneButton).performClick();
-
+            try {
+                activity.findViewById(R.id.callVideoButton).performClick();
+                //activity.findViewById(R.id.speakerphoneButton).performClick();1
+            }catch (Exception e){
+                logger.info("mychange videobug auto clicked"+e.getMessage());
+            }
 
         }
     };

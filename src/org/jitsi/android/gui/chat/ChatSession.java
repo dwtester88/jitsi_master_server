@@ -330,8 +330,15 @@ public class ChatSession
 
                 //mychange here image is encoded
                // msg = imOpSet.createMessage(convertimage());
-
-                if(sourcerequest.equals("broadcast")) {
+                if (sourcerequest==null){
+                    for (int i = 0; i < MetaContactRenderer.contactsmetacontact.size(); i++) {
+                        currentChatTransport1 = MetaContactRenderer.contactsmetacontact.get(i).getDefaultContact();
+                        imOpSet.sendInstantMessage(currentChatTransport1, ContactResource.BASE_RESOURCE, msg);
+                        logger.info("mychange chatsession message sent is " + msg.getContent().length() +
+                                " CurrentChatTransport is destination address " + currentChatTransport1.getAddress() + " contact count is ");
+                    }
+                }
+                else if(sourcerequest.equals("broadcast")) {
                     for (int i = 0; i < MetaContactRenderer.contactsmetacontact.size(); i++) {
                         currentChatTransport1 = MetaContactRenderer.contactsmetacontact.get(i).getDefaultContact();
                         imOpSet.sendInstantMessage(currentChatTransport1, ContactResource.BASE_RESOURCE, msg);

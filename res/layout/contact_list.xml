@@ -5,19 +5,38 @@
     android:layout_height="fill_parent"
     android:background="@color/white">
 
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal">
+
+
 
     <ImageView
             android:src="@color/blue"
-            android:layout_width="100dp"
-            android:layout_height="100dp" android:id="@+id/imageView2"/>
+            android:layout_width="50dp"
+            android:layout_height="50dp" android:id="@+id/imageView2"/>
 
 
     <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/broadcastbutton"
+        android:text="send"
+        android:onClick="sendpic"/>
+    <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/broadcastbutton"
-            android:text="send"
-            android:onClick="sendpic"/>
+            android:id="@+id/takepicturebutton"
+            android:text="takepicture" />
+
+    </LinearLayout>
+
+    <SurfaceView
+            android:id="@+id/surface_cameraview"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+    />
 
     <ExpandableListView
             android:id="@+id/contactListView"

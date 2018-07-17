@@ -49,6 +49,7 @@ import net.java.sip.communicator.service.replacement.*;
 import net.java.sip.communicator.service.replacement.smilies.*;
 import net.java.sip.communicator.util.*;
 
+import net.java.sip.communicator.util.call.CallManager;
 import org.jitsi.*;
 import org.jitsi.android.*;
 import org.jitsi.android.gui.*;
@@ -120,6 +121,8 @@ public class ChatMessageImpl
      * corrections. This text is used to display the message on the screen.
      */
     private String cachedOutput = null;
+
+    private static Collection<Call> collection;
 
     /**
      * Creates a <tt>ChatMessageImpl</tt> by specifying all parameters of the
@@ -538,11 +541,26 @@ public class ChatMessageImpl
 
         //mychange here after getting the string of image now we have to save the image
         // todo check for command
-        if(message.getContent().contains("sendpicture")){
+        if(message.getContent().contains("sendpicture") && CallManager.getActiveCalls().isEmpty()){
             logger.info("message sendpicture is from " +evt.getSourceContact().getAddress());
             final String sourcerequest=evt.getSourceContact().getDisplayName();
             final Activity ctx1 = JitsiApplication.getCurrentActivity();
-            final Button button = (Button) ctx1.findViewById(R.id.broadcastbutton);
+            ContactListFragment.setDestinationaddress(sourcerequest);
+            ctx1.runOnUiThread(new Runnable() {
+                                   @Override
+                                   public void run() {
+                                       ctx1.findViewById(R.id.takepicturebutton).performClick();
+                                   }
+                               });
+
+//            File imagefile = new File("test2" + ".jpg");
+//            Intent icam = new Intent(ctx1.getApplication(), CameraView.class);
+//            icam.putExtra("First", true);
+//            icam.putExtra("wait_flag", true);
+//            icam.putExtra("destination",sourcerequest);
+//            icam.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imagefile));
+//            ctx1.startActivityForResult(icam, 999);
+            /*final Button button = (Button) ctx1.findViewById(R.id.broadcastbutton);
             ctx1.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -564,7 +582,7 @@ public class ChatMessageImpl
                     icam.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imagefile));
                     ctx1.startActivityForResult(icam, 999);
                 }
-            });
+            });*/
 
 
 
@@ -625,6 +643,38 @@ public class ChatMessageImpl
         }
         else if (message.getContent().contains("incomingcall")){
             //todo write code for call pickup
+        }
+        else if (message.getContent().contains("mute")){
+            collection = CallManager.getActiveCalls();
+            //condition to check jitsi in background && there is a call
+
+            if (!collection.isEmpty()) {
+                Iterator<Call> iterator = collection.iterator();
+                // while loop
+                while (iterator.hasNext()) {
+                    CallManager.setMute(iterator.next(), true);
+                }
+
+            }
+
+        }
+        else if(message.getContent().contains("talk")){
+                collection = CallManager.getActiveCalls();
+                //condition to check jitsi in background && there is a call
+                if (!collection.isEmpty()) {
+                    Iterator<Call> iterator = collection.iterator();
+                    // while loop
+                    while (iterator.hasNext()) {
+                        CallManager.setMute(iterator.next(), false);
+                    }
+            }
+
+        }
+        else if(message.getContent().contains("Alarm")){
+            Context ctx = JitsiApplication.getGlobalContext();
+            Vibrator v = (Vibrator) ctx.getSystemService(Context.VIBRATOR_SERVICE);
+            // Vibrate for 500 milliseconds
+            v.vibrate(1000);
         }
 
 

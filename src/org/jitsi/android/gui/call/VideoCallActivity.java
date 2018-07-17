@@ -151,6 +151,7 @@ public class VideoCallActivity
 
     TextView statusName;
     ImageView hangupView;
+    Runnable runnable;
 
     /**
      * Called when the activity is starting. Initializes the corresponding
@@ -254,11 +255,47 @@ public class VideoCallActivity
         }
 
         //mychange adding timertask to end call when call is disconnected from opposite end
-        calldisconnect();
+        try {
+            calldisconnect();
+        }catch (Exception e){
+            logger.info("Error occur at calldisconnect function on Videoactivity: "+e.getMessage());
+        }
+
     }
 
     private void calldisconnect() {
-        //mychange adding timertask to end call when call is disconnected from opposite end
+        //force disconnect the call if it doesnot ends in 5 min
+        final int[] countdown = {3 * 60 * 2};
+        final Handler handler = new Handler();
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                countdown[0]--;
+
+                String status = statusName.getText().toString();
+                logger.info("mychange videocallactivity status text is "+status +" and countdown is"+countdown[0]);
+                if(status.contains("Disconnected") || status.contains("fail") || countdown[0]<1 ){
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            findViewById(R.id.callHangupButton).performClick();
+                            logger.info("mychange videocallactivity status button is clicked "+statusName.getText().toString());
+                        }
+                    });
+                    logger.info("mychange videocallactivity status text if condition "+statusName.getText().toString());
+
+                }
+                else{
+
+                    handler.postDelayed(runnable,500);
+                }
+
+            }
+        };
+        handler.postDelayed(runnable,500);
+
+        /*//mychange adding timertask to end call when call is disconnected from opposite end
         final Timer timer = new Timer();
         long delay = 5000;
         long intevalPeriod = 3 * 1000;
@@ -267,8 +304,9 @@ public class VideoCallActivity
             @Override
             public void run() {
                 // task to run goes here
-                logger.info("mychange videocallactivity status text is "+statusName.getText().toString());
-                if(statusName.getText().toString().contains("Disconnected")){
+                String status = statusName.getText().toString();
+                logger.info("mychange videocallactivity status text is "+status);
+                if(status.contains("Disconnected") || status.contains("fail") ){
 
                     runOnUiThread(new Runnable() {
                         @Override
@@ -281,10 +319,10 @@ public class VideoCallActivity
                         timer.cancel();
                         timer.purge();
                 }
+
             }
         };
-        timer.scheduleAtFixedRate(disconnect, delay,
-                intevalPeriod);
+        timer.schedule(disconnect,delay);*/
     }
 
     @Override

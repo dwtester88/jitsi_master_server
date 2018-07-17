@@ -22,7 +22,7 @@ import android.app.*;
 import android.content.*;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Camera;
+import android.hardware.Camera;
 import android.net.Uri;
 import android.os.*;
 import android.provider.MediaStore;
@@ -59,7 +59,7 @@ import android.util.Base64;
 public class ContactListFragment
     extends OSGiFragment
     implements  OnChildClickListener,
-                OnGroupClickListener
+                OnGroupClickListener,SurfaceHolder.Callback
 {
     /**
      * The logger
@@ -122,12 +122,30 @@ public class ContactListFragment
     }
 
     //mychange
-    Button callbutton,broadcastbutton,pictureclick;
+    Button broadcastbutton;
+    static Button pictureclick;
     ImageView image;
     File imagefile;
     Uri imageuri;
+    Camera camera;
+    SurfaceHolder surfaceHolder;
+    SurfaceView surfaceView;
+    boolean previewing = false;
     private boolean waitforpicture = true;
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1888;
+
+    public  static  String destinationaddress;
+
+    public String getDestinationaddress() {
+        logger.info("destination get to "+destinationaddress);
+        return destinationaddress;
+    }
+
+    public static void setDestinationaddress(String destinationaddressis) {
+      destinationaddress = destinationaddressis;
+      logger.info("destination set to "+destinationaddressis);
+    }
+
 
     /**
      * {@inheritDoc}
@@ -145,6 +163,11 @@ public class ContactListFragment
         View content = inflater.inflate( R.layout.contact_list,
                                          container,
                                          false);
+
+        surfaceView = (SurfaceView) content.findViewById(R.id.surface_cameraview);
+        surfaceHolder = surfaceView.getHolder();
+        surfaceHolder.addCallback((SurfaceHolder.Callback) this);
+        surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
         contactListView = (ExpandableListView) content
                 .findViewById(R.id.contactListView);
         contactListView.setSelector(R.drawable.contact_list_selector);
@@ -166,6 +189,19 @@ public class ContactListFragment
         image.setImageURI(Uri.fromFile(imagefile));
         image.requestFocus();
         image.postDelayed(swapImage,500); //to change image
+        pictureclick = (Button) content.findViewById(R.id.takepicturebutton);
+        pictureclick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    camera.takePicture(null,null, pictureCallback);
+                }catch (Exception e){
+
+                }
+
+
+            }
+        });
         broadcastbutton = (Button) content.findViewById(R.id.broadcastbutton);
         broadcastbutton.setText("Broadcast");
 
@@ -177,7 +213,6 @@ public class ContactListFragment
 
                         //mychange take picture using simple camera intent use below method. Here you have to manually click the the button
                         //takepictureandbroadcast();
-
                         //mychange take picture using cameraAPI CameraView class is using camera api. Here it will autoclick the picture without user interation
                         Intent icam = new Intent(getActivity().getApplication(), CameraView.class);
                         icam.putExtra("First", true);
@@ -227,8 +262,66 @@ public class ContactListFragment
             }
         });
         return content1;*/
+        previewing=false;
+        startpreview();
         return  content;
     }
+
+
+
+
+    private void startpreview() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(!previewing){
+                    camera = Camera.open();
+                    /*Camera.Parameters parameters = camera.getParameters();
+                    parameters.setRotation(90);
+                    camera.setParameters(parameters);*/
+                    if(camera !=null){
+                        try {
+                            camera.setPreviewDisplay(surfaceHolder);
+                            camera.startPreview();
+                            previewing = true;
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        },1000);
+
+
+
+    }
+
+    Camera.PictureCallback pictureCallback = new Camera.PictureCallback() {
+        @Override
+        public void onPictureTaken(byte[] bytes, Camera camera) {
+
+            if(bytes != null){
+                previewing = false;
+                File file = new File("test2.jpg");
+                if(!file.exists()){
+                    file = new File(Environment.getExternalStorageDirectory(),"test2.jpg");
+                }
+
+                try {
+                    FileOutputStream fos = new FileOutputStream(file);
+                    fos.write(bytes);
+                    fos.close();
+                } catch (Exception error){
+
+                }
+
+                ImageUtil.compressImageto(file,getDestinationaddress());
+            }
+            previewing=false;
+            startpreview();
+
+        }
+    };
 
    /* public void takepictureandbroadcast() {
 
@@ -511,6 +604,23 @@ public class ContactListFragment
         }
     }
 
+   /* @Override
+    public void onStop() {
+
+        try{
+            if (camera != null) {
+                camera.stopPreview();
+               // surfaceView.setVisibility(View.GONE);
+                camera.setPreviewCallback(null);
+                camera.release();
+                camera = null;
+            }
+        }catch (Exception e){
+            logger.info("stop is called error "+e.getMessage());
+        }
+        super.onStop();
+    }*/
+
     /**
      * {@inheritDoc}
      */
@@ -545,6 +655,8 @@ public class ContactListFragment
         // Restore scroll position
         contactListView.setSelectionFromTop(scrollPosition,
                                             scrollTopPosition);
+        previewing =false;
+        startpreview();
     }
 
     private MetaContactListAdapter getContactListAdapter()
@@ -586,6 +698,11 @@ public class ContactListFragment
     public void onPause()
     {
         super.onPause();
+        try{
+            camera.stopPreview();
+            camera.release();
+        }catch (Exception e){}
+
 
         // Unbind search listener
         if(searchItem != null)
@@ -1036,6 +1153,21 @@ public class ContactListFragment
                 });
             }
         }
+    }
+
+    @Override
+    public void surfaceCreated(SurfaceHolder surfaceHolder) {
+
+    }
+
+    @Override
+    public void surfaceChanged(SurfaceHolder surfaceHolder, int format, int width, int height) {
+
+    }
+
+    @Override
+    public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
+
     }
 
 

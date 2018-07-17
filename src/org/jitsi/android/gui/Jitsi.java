@@ -19,6 +19,7 @@ package org.jitsi.android.gui;
 
 import android.app.*;
 import android.content.*;
+import android.graphics.PixelFormat;
 import android.media.MediaPlayer;
 import android.os.Bundle; // disambiguation
 
@@ -135,6 +136,7 @@ public class Jitsi
             }
         }
 
+        getWindow().setFormat(PixelFormat.UNKNOWN);
         handleIntent(getIntent(), savedInstanceState);
     }
 
@@ -315,14 +317,23 @@ public class Jitsi
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_VOLUME_DOWN )){
-            findViewById(R.id.broadcastbutton).performClick();
+            //findViewById(R.id.broadcastbutton).performClick();
+//            try{
+//                CameraView view = new CameraView();
+//                view.sendimage();
+//            }
+//            catch (Exception e){
+//
+//            }
+            ImageUtil.sendimage("broadcast");
             ChatSession.sendMessage("guest","broadcast");
             MediaPlayer mp;
             mp = MediaPlayer.create(JitsiApplication.getCurrentActivity().getApplicationContext(), R.raw.lowbell);
             mp.start();
         }
         else if (keyCode==KeyEvent.KEYCODE_VOLUME_UP){
-            findViewById(R.id.broadcastbutton).performClick();
+            ContactListFragment.setDestinationaddress("");
+            findViewById(R.id.takepicturebutton).performClick();
             ChatSession.sendMessage("motion","broadcast");
         }
         return true;

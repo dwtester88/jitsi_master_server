@@ -118,6 +118,7 @@ public class LoggingSettings
             PacketLoggingConfiguration cfg = packetLogging.getConfiguration();
 
             PreferenceScreen screen = getPreferenceScreen();
+            cfg.setGlobalLoggingEnabled(false);
 
             PreferenceUtil.setCheckboxVal(
                     screen, P_KEY_LOG_ENABLE,

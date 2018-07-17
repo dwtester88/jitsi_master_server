@@ -133,7 +133,7 @@ public class CameraView extends Activity implements SurfaceHolder.Callback, View
                         outStream.flush();
                         outStream.close();
                         //mychange
-                        sendimage();
+                        //sendimage();
                     } catch (Exception e) {
                         Log.d("Error e ",e.getMessage());
                     }
@@ -158,7 +158,7 @@ public class CameraView extends Activity implements SurfaceHolder.Callback, View
 
 
     //mychange
-    public void sendimage() {
+    /*public void sendimage() {
         File imagefile = new File(Environment.getExternalStorageDirectory(),"test2.jpg" );
         FileInputStream fis = null;
         try {
@@ -172,7 +172,7 @@ public class CameraView extends Activity implements SurfaceHolder.Callback, View
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
 
 
